@@ -27,6 +27,7 @@ let generalQueryController = {
 			let phoneNumberData = { isGiven: false, verifiedStatus: false, data: null };
 			let emailData = { isGiven: false, verifiedStatus: false, isBusinessEmail: false, data: null };
 			if (!conversationData.userDetails) conversationData.userDetails = {};
+			console.log(conversationData.slotsAnswered,"conversationData.slotsAnswered top")
 			if (!conversationData.slotsAnswered) conversationData.slotsAnswered = [];
 			if (conversationData.leadInserted && conversationData.intentNameByCordinator === "agent.contactUs") {
 				let result = integrator.responseCreater(integrator.conditionCreater("leadAlreadyCaptured"), conversationData);
