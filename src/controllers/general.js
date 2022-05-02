@@ -34,6 +34,7 @@ let generalQueryController = {
 				return res.status(result.statusCode).json(result);
 			}
 			for (let key in slotValues) {
+				console.log({key})
 				switch (key) {
 					case "email":
 						if (slotValues[key].listValue.values.length !== 0) {
@@ -82,7 +83,7 @@ let generalQueryController = {
 				}
 			}
 			let getSlotAnsweredData = slotData(conversationData.userDetails);
-			console.log(getSlotAnsweredData);
+			console.log({getSlotAnsweredData});
 			conversationData.slotsAnswered = getSlotAnsweredData;
 			console.log(conversationData.userDetails, conversationData.slotsAnswered);
 			if (conversationData.previousIntentName === "agent.contactUs") {
