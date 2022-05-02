@@ -19,7 +19,7 @@ let contactController = {
 			let emailData = { isGiven: false, verifiedStatus: false, isBusinessEmail: false, data: null };
 			let nameData = { isGiven: false, data: null };
 			if (!conversationData.userDetails) conversationData.userDetails = {};
-			if (conversationData.leadInserted && conversationData.intentNameByCordinator === "agent.specific.contactUs") {
+			if (conversationData.leadInserted && conversationData.intentNameByCordinator === "agent.contactUs") {
 				let result = integrator.responseCreater(integrator.conditionCreater("leadAlreadyCaptured"), conversationData);
 				return res.status(result.statusCode).json(result);
 			}
@@ -96,13 +96,13 @@ let contactController = {
 				if (conversationData.slotsAnswered.length === 0) {
 					conversationData.isNameAsked = true;
 					responseObject = integrator.conditionCreater("askName");
-					conversationData.previousIntentName = "agent.specific.contactUs";
+					conversationData.previousIntentName = "agent.contactUs";
 					conversationData.nameAskedFlag = true;
 				} 
 				if (conversationData.slotsAnswered.length === 1 && conversationData.slotsAnswered[0] === "askEmail") {	
 					conversationData.isNameAsked = true;
 					responseObject = integrator.conditionCreater("askName");
-					conversationData.previousIntentName = "agent.specific.contactUs";
+					conversationData.previousIntentName = "agent.contactUs";
 					conversationData.nameAskedFlag = true;
 				}
 				if (conversationData.slotsAnswered.length === 2 && 
@@ -110,7 +110,7 @@ let contactController = {
 					conversationData.slotsAnswered.includes("askUrlToBeEmailed")) {	
 					conversationData.isNameAsked = true;
 					responseObject = integrator.conditionCreater("askName");
-					conversationData.previousIntentName = "agent.specific.contactUs";
+					conversationData.previousIntentName = "agent.contactUs";
 					conversationData.nameAskedFlag = true;
 				} 
 				else {
@@ -172,15 +172,15 @@ let contactController = {
 				} else {
 					if (phoneNumberData.isGiven && phoneNumberData.verifiedStatus === false && emailData.isGiven && emailData.verifiedStatus === false && nameData.isGiven) {
 						responseObject = integrator.conditionCreater("invalidEmailAndPhone");
-						conversationData.previousIntentName = "agent.specific.contactUs";
+						conversationData.previousIntentName = "agent.contactUs";
 					}
 					if (phoneNumberData.isGiven && phoneNumberData.verifiedStatus === false) {
 						responseObject = integrator.conditionCreater(phoneNumberData.condition);
-						conversationData.previousIntentName = "agent.specific.contactUs";
+						conversationData.previousIntentName = "agent.contactUs";
 					}
 					if (emailData.isGiven && emailData.verifiedStatus === false && !emailData.isBusinessEmail && nameData.isGiven) {
 						responseObject = integrator.conditionCreater("invalidBusinessEmail");
-						conversationData.previousIntentName = "agent.specific.contactUs";
+						conversationData.previousIntentName = "agent.contactUs";
 					}
 					if (
 						emailData.isGiven &&
@@ -191,7 +191,7 @@ let contactController = {
 						phoneNumberData.verifiedStatus
 					) {
 						responseObject = integrator.conditionCreater("invalidBusinessEmail");
-						conversationData.previousIntentName = "agent.specific.contactUs";
+						conversationData.previousIntentName = "agent.contactUs";
 					}
 					if (nameData.isGiven && emailData.verifiedStatus && phoneNumberData.verifiedStatus) {
 						let slot = slotFiller(conversationData.slotsAnswered, allSlots);
@@ -215,7 +215,7 @@ let contactController = {
 							let mailData = mailComposeForSalesTeam(conversationData.userDetails);
 							// sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
 							let result = integrator.responseCreater(responseObject, conversationData);
-							conversationData.previousIntentName = "agent.specific.contactUs";
+							conversationData.previousIntentName = "agent.contactUs";
 							return res.status(result.statusCode).json(result);
 						}
 						responseObject = integrator.singleValueReplacer(slot, "$userName", conversationData.userDetails.name, "oddMessages");
@@ -245,25 +245,25 @@ let contactController = {
 						}
 						responseObject = integrator.singleValueReplacer(slot, "$userName", conversationData.userDetails.name, "oddMessages");
 						let result = integrator.responseCreater(responseObject, conversationData);
-						conversationData.previousIntentName = "agent.specific.contactUs";
+						conversationData.previousIntentName = "agent.contactUs";
 						return res.status(result.statusCode).json(result);
 					}
 					if (conversationData.userDetails.name && conversationData.userDetails.phoneNumber && !conversationData.userDetails.email) {
 						responseObject = integrator.singleValueReplacer("askEmailWithSlotAdded", "$userName", conversationData.userDetails.name, "oddMessages");
 						let result = integrator.responseCreater(responseObject, conversationData);
-						conversationData.previousIntentName = "agent.specific.contactUs";
+						conversationData.previousIntentName = "agent.contactUs";
 						return res.status(result.statusCode).json(result);
 					}
 					if (!conversationData.userDetails.name && conversationData.userDetails.phoneNumber && conversationData.userDetails.email) {
 						responseObject = integrator.singleValueReplacer("askNameWithSlotAdded", "$userName", "User", "oddMessages");
 						let result = integrator.responseCreater(responseObject, conversationData);
-						conversationData.previousIntentName = "agent.specific.contactUs";
+						conversationData.previousIntentName = "agent.contactUs";
 						return res.status(result.statusCode).json(result);
 					}
 					if (conversationData.userDetails.name && !conversationData.userDetails.phoneNumber && conversationData.userDetails.email) {
 						responseObject = integrator.singleValueReplacer("askPhoneNumberWithSlotAdded", "$userName", conversationData.userDetails.name, "oddMessages");
 						let result = integrator.responseCreater(responseObject, conversationData);
-						conversationData.previousIntentName = "agent.specific.contactUs";
+						conversationData.previousIntentName = "agent.contactUs";
 						return res.status(result.statusCode).json(result);
 					}
 					if (!nameData.isGiven) {
@@ -291,13 +291,13 @@ let contactController = {
 							return res.status(result.statusCode).json(result);
 						}
 						responseObject = integrator.singleValueReplacer(slot, "$userName", conversationData.userDetails.name, "oddMessages");
-						conversationData.previousIntentName = "agent.specific.contactUs";
+						conversationData.previousIntentName = "agent.contactUs";
 						let result = integrator.responseCreater(responseObject, conversationData);
 						return res.status(result.statusCode).json(result);
 					}
 				}
 			}
-			conversationData.previousIntentName = "agent.specific.contactUs";
+			conversationData.previousIntentName = "agent.contactUs";
 			console.dir(responseObject, { depth: null, colors: true });
 			let result = integrator.responseCreater(responseObject, conversationData);
 			return res.status(result.statusCode).json(result);
