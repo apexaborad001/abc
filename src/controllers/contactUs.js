@@ -89,6 +89,7 @@ let contactController = {
 			// for (const data of slotsData.slotsAnswered) {
 			// 	conversationData.slotsAnswered.push(data);
 			// }
+            console.log(conversationData.userDetails,"conversationData.userDetails")
 			let getSlotAnsweredData = slotData(conversationData.userDetails)
 			console.log({getSlotAnsweredData})
 			conversationData.slotsAnswered = getSlotAnsweredData
