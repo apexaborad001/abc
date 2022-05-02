@@ -41,6 +41,7 @@ let generalQueryController = {
 							let isBusinessMail = validateBusinessEmail(slotValues[key].listValue.values[0].stringValue);
 							let emailVerifiedData = "";
 							if (isBusinessMail) emailVerifiedData = await verifyValidEmail(slotValues[key].listValue.values[0].stringValue).then((res)=>{return res}).catch((err)=>{return err})
+							emailVerifiedData["smtpCheck"] = "true"
 							// let isValidEmail = verifyValidEmail(slotValues[key].listValue.values[0].stringValue)
 							// console.log(isValidEmail)
 							if (emailVerifiedData === "" && !isBusinessMail) {
