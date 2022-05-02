@@ -89,7 +89,7 @@ let contactController = {
 			// 	conversationData.slotsAnswered.push(data);
 			// }
 			let getSlotAnsweredData = slotData(conversationData.userDetails)
-			console.log(getSlotAnsweredData)
+			console.log({getSlotAnsweredData})
 			conversationData.slotsAnswered = getSlotAnsweredData
 			console.log(slotsData, conversationData.userDetails, conversationData.slotsAnswered);
 			if (!slotsData.isSlotGiven) {

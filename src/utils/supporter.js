@@ -15,6 +15,7 @@ function nameRecognizer(conversationData) {
 }
 
 function slotData(details){
+	console.log({details})
 	if(Object.keys(details).length === 0 && details.constructor === Object) return []
 	else{
 		let givenSlots = Object.keys(details);
