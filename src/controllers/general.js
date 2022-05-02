@@ -85,7 +85,8 @@ let generalQueryController = {
 			console.log({getSlotAnsweredData});
 			conversationData.slotsAnswered = getSlotAnsweredData;
 			console.log(conversationData.userDetails, conversationData.slotsAnswered);
-			if (conversationData.previousIntentName === "agent.contactUs") {
+			// if (conversationData.previousIntentName === "agent.contactUs") {
+				console.log({emailData,phoneNumberData})
 				if (emailData.isGiven && emailData.verifiedStatus && emailData.isBusinessEmail) {
 					conversationData.slotsAnswered.push("askEmail");
 					conversationData.isEmailAsked = false;
@@ -243,7 +244,7 @@ let generalQueryController = {
 						return res.status(result.statusCode).json(result);
 					}
 				}
-			}
+			// }
 			console.log({responseObject})
 			responseObject.map((ele) => {
 				console.log(ele.conditions, "conditions");
