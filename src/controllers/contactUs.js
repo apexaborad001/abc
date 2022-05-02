@@ -24,6 +24,7 @@ let contactController = {
 				return res.status(result.statusCode).json(result);
 			}
 			for (let key in slotValues) {
+                console.log({key})
 				switch (key) {
 					case "given-name":
 						if (slotValues[key].listValue.values.length !== 0) {
