@@ -54,7 +54,7 @@ let Controller = {
 				let result = integrator.responseCreater(responseObject, conversationData);
 				return res.status(result.statusCode).json(result);
 			}
-			if (conversationData.previousIntentName === "agent.specific.contactUs") {
+			if (conversationData.previousIntentName === "agent.contactUs") {
 				if (!conversationData.userDetails.name) {
 					if (nameData.isNameRecognized && nameData.name !== "") {
 						conversationData.nameAskedFlag = false;
