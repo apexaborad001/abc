@@ -30,11 +30,10 @@ let generalQueryController = {
 			if (!conversationData.slotsAnswered) conversationData.slotsAnswered = [];
 			if (conversationData.leadInserted && conversationData.intentNameByCordinator === "agent.contactUs") {
 				let result = integrator.responseCreater(integrator.conditionCreater("leadAlreadyCaptured"), conversationData);
-				console.dir(result, { depth : null ,colors : true})
+				
 				return res.status(result.statusCode).json(result);
 			}
 			for (let key in slotValues) {
-				console.log({key})
 				switch (key) {
 					case "email":
 						if (slotValues[key].listValue.values.length !== 0) {
@@ -139,20 +138,18 @@ let generalQueryController = {
 					if (slot === "finalMessage") {
 						if (conversationData.userDetails.name !== undefined) conversationData.userDetails.name = conversationData.userDetails.name.trim();
 						responseObject = integrator.singleValueReplacer(slot, "$userName", conversationData.userDetails.name, "message");
-						console.log(conversationData.userDetails, "10");
 						conversationData.leadInserted = true;
 						leadGenaratedLogs(conversationData.userDetails);
 						let mailData = mailComposeForSalesTeam(conversationData.userDetails);
 						// sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
 						let result = integrator.responseCreater(responseObject, conversationData);
-						console.dir(result, { depth : null ,colors : true})
+						
 						return res.status(result.statusCode).json(result);
 					}
 					if (conversationData.userDetails !== undefined)
 						responseObject = integrator.singleValueReplacer(slot, "$userName", conversationData.userDetails.name, "oddMessages");
 					else responseObject = integrator.singleValueReplacer(slot, "$userName", "User", "oddMessages");
 					let result = integrator.responseCreater(responseObject, conversationData);
-					console.dir(result, { depth : null ,colors : true})
 					return res.status(result.statusCode).json(result);
 				} else if (emailData.isGiven && emailData.verifiedStatus && emailData.isBusinessEmail && !phoneNumberData.isGiven) {
 					conversationData.isEmailAsked = false;
@@ -178,7 +175,7 @@ let generalQueryController = {
 						// sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
 						conversationData.leadInserted = true;
 						let result = integrator.responseCreater(responseObject, conversationData);
-						console.dir(result, { depth : null ,colors : true})
+						
 						return res.status(result.statusCode).json(result);
 					}
 					if (conversationData.userDetails !== undefined)
@@ -190,12 +187,12 @@ let generalQueryController = {
 					if (!emailData.isBusinessEmail) {
 						responseObject = integrator.conditionCreater("invalidBusinessEmail");
 						let result = integrator.responseCreater(responseObject, conversationData);
-						console.dir(result, { depth : null ,colors : true})
+						
 						return res.status(result.statusCode).json(result);
 					} else {
 						responseObject = integrator.conditionCreater("invalidEmail");
 						let result = integrator.responseCreater(responseObject, conversationData);
-						console.dir(result, { depth : null ,colors : true})
+						
 						return res.status(result.statusCode).json(result);
 					}
 				} else if (phoneNumberData.isGiven && phoneNumberData.verifiedStatus && !emailData.isGiven) {
@@ -222,19 +219,19 @@ let generalQueryController = {
 						let mailData = mailComposeForSalesTeam(conversationData.userDetails);
 						// sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
 						let result = integrator.responseCreater(responseObject, conversationData);
-						console.dir(result, { depth : null ,colors : true})
+						
 						return res.status(result.statusCode).json(result);
 					}
 					if (conversationData.userDetails !== undefined)
 						responseObject = integrator.singleValueReplacer(slot, "$userName", conversationData.userDetails.name, "oddMessages");
 					else responseObject = integrator.singleValueReplacer(slot, "$userName", "User", "oddMessages");
 					let result = integrator.responseCreater(responseObject, conversationData);
-					console.dir(result, { depth : null ,colors : true})
+					
 					return res.status(result.statusCode).json(result);
 				} else if (phoneNumberData.isGiven && phoneNumberData.verifiedStatus === false && !emailData.isGiven) {
 					responseObject = integrator.conditionCreater(phoneNumberData.condition);
 					let result = integrator.responseCreater(responseObject, conversationData);
-					console.dir(result, { depth : null ,colors : true})
+					
 					return res.status(result.statusCode).json(result);
 				} else if (emailData.isGiven && emailData.verifiedStatus == false && emailData.isBusinessEmail === false && phoneNumberData.isGiven) {
 					conversationData.slotsAnswered.push("askPhoneNumber");
@@ -243,20 +240,20 @@ let generalQueryController = {
 					if (!emailData.isBusinessEmail) {
 						responseObject = integrator.conditionCreater("invalidBusinessEmail");
 						let result = integrator.responseCreater(responseObject, conversationData);
-						console.dir(result, { depth : null ,colors : true})
 						return res.status(result.statusCode).json(result);
 					}
 				}
 			}
+			console.log({responseObject})
 			responseObject.map((ele) => {
 				console.log(ele.conditions, "conditions");
 				console.log(ele.replaceMentValues, "replaceMentValues");
 			});
 			let result = integrator.responseCreater(responseObject, conversationData);
-			console.dir(result, { depth : null ,colors : true})
+			
 			res.status(result.statusCode).json(result);
 		} catch (e) {
-			console.log(e);
+			console.log({e});
 			let result = integrator.responseCreater(integrator.conditionCreater("Default response"), conversationData);
 			res.status(result.statusCode).json(result);
 		}
@@ -275,7 +272,7 @@ let generalQueryController = {
 	// 		if (!conversationData.slotsAnswered) conversationData.slotsAnswered = [];
 	// 		if (conversationData.leadInserted && conversationData.intentNameByCordinator === "agent.contactUs") {
 	// 			let result = integrator.responseCreater(integrator.conditionCreater("leadAlreadyCaptured"), conversationData);
-	// 			console.dir(result, { depth : null ,colors : true})
+	// 			
 	// 			return res.status(result.statusCode).json(result);
 	// 		}
 	// 		for (let key in slotValues) {
@@ -448,7 +445,7 @@ let generalQueryController = {
 	// 					conversationData.askEmailFlag = false;
 	// 					responseObject = integrator.conditionCreater("validEmailForIndustries");
 	// 					let result = integrator.responseCreater(responseObject, conversationData);
-	// 					console.dir(result, { depth : null ,colors : true})
+	// 					
 	// 					return res.status(result.statusCode).json(result);
 	// 				}
 	// 				if (!emailData.isBusinessMail) {
@@ -578,14 +575,14 @@ let generalQueryController = {
 	// 					let mailData = mailComposeForSalesTeam(conversationData.userDetails);
 	// 					// sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
 	// 					let result = integrator.responseCreater(responseObject, conversationData);
-	// 					console.dir(result, { depth : null ,colors : true})
+	// 					
 	// 					return res.status(result.statusCode).json(result);
 	// 				}
 	// 				if (conversationData.userDetails !== undefined)
 	// 					responseObject = integrator.singleValueReplacer(slot, "$userName", conversationData.userDetails.name, "oddMessages");
 	// 				else responseObject = integrator.singleValueReplacer(slot, "$userName", "User", "oddMessages");
 	// 				let result = integrator.responseCreater(responseObject, conversationData);
-	// 				console.dir(result, { depth : null ,colors : true})
+	// 				
 	// 				return res.status(result.statusCode).json(result);
 	// 			} else if (emailData.isGiven && emailData.verifiedStatus && emailData.isBusinessEmail && !phoneNumberData.isGiven) {
 	// 				conversationData.isEmailAsked = false;
@@ -611,7 +608,7 @@ let generalQueryController = {
 	// 					// sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
 	// 					conversationData.leadInserted = true;
 	// 					let result = integrator.responseCreater(responseObject, conversationData);
-	// 					console.dir(result, { depth : null ,colors : true})
+	// 					
 	// 					return res.status(result.statusCode).json(result);
 	// 				}
 	// 				if (conversationData.userDetails !== undefined)
@@ -623,12 +620,12 @@ let generalQueryController = {
 	// 				if (!emailData.isBusinessEmail) {
 	// 					responseObject = integrator.conditionCreater("invalidBusinessEmail");
 	// 					let result = integrator.responseCreater(responseObject, conversationData);
-	// 					console.dir(result, { depth : null ,colors : true})
+	// 					
 	// 					return res.status(result.statusCode).json(result);
 	// 				} else {
 	// 					responseObject = integrator.conditionCreater("invalidEmail");
 	// 					let result = integrator.responseCreater(responseObject, conversationData);
-	// 					console.dir(result, { depth : null ,colors : true})
+	// 					
 	// 					return res.status(result.statusCode).json(result);
 	// 				}
 	// 			} else if (phoneNumberData.isGiven && phoneNumberData.verifiedStatus && !emailData.isGiven) {
@@ -655,19 +652,19 @@ let generalQueryController = {
 	// 					let mailData = mailComposeForSalesTeam(conversationData.userDetails);
 	// 					// sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
 	// 					let result = integrator.responseCreater(responseObject, conversationData);
-	// 					console.dir(result, { depth : null ,colors : true})
+	// 					
 	// 					return res.status(result.statusCode).json(result);
 	// 				}
 	// 				if (conversationData.userDetails !== undefined)
 	// 					responseObject = integrator.singleValueReplacer(slot, "$userName", conversationData.userDetails.name, "oddMessages");
 	// 				else responseObject = integrator.singleValueReplacer(slot, "$userName", "User", "oddMessages");
 	// 				let result = integrator.responseCreater(responseObject, conversationData);
-	// 				console.dir(result, { depth : null ,colors : true})
+	// 				
 	// 				return res.status(result.statusCode).json(result);
 	// 			} else if (phoneNumberData.isGiven && phoneNumberData.verifiedStatus === false && !emailData.isGiven) {
 	// 				responseObject = integrator.conditionCreater(phoneNumberData.condition);
 	// 				let result = integrator.responseCreater(responseObject, conversationData);
-	// 				console.dir(result, { depth : null ,colors : true})
+	// 				
 	// 				return res.status(result.statusCode).json(result);
 	// 			} else if (emailData.isGiven && emailData.verifiedStatus == false && emailData.isBusinessEmail === false && phoneNumberData.isGiven) {
 	// 				conversationData.slotsAnswered.push("askPhoneNumber");
@@ -676,7 +673,7 @@ let generalQueryController = {
 	// 				if (!emailData.isBusinessEmail) {
 	// 					responseObject = integrator.conditionCreater("invalidBusinessEmail");
 	// 					let result = integrator.responseCreater(responseObject, conversationData);
-	// 					console.dir(result, { depth : null ,colors : true})
+	// 					
 	// 					return res.status(result.statusCode).json(result);
 	// 				}
 	// 			}
@@ -713,7 +710,7 @@ let generalQueryController = {
 	// 			console.log(ele.replaceMentValues, "replaceMentValues");
 	// 		});
 	// 		let result = integrator.responseCreater(responseObject, conversationData);
-	// 		console.dir(result, { depth : null ,colors : true})
+	// 		
 	// 		res.status(result.statusCode).json(result);
 	// 	} catch (e) {
 	// 		console.log(e);
