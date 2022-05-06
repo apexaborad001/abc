@@ -41,7 +41,7 @@ function mailComposeForSalesTeam(userDetails) {
 		name = name.charAt(0).toUpperCase() + name.slice(1);
 	}
 	return {
-		email: "sales@kanerika.com",
+		email: "bot.leadmanager@gmail.com",
 		subject: `Jessika - Sales Lead`,
 		body: `Hi Team,<br><br>
               Got a new lead now. Find the details below:<br><br>
