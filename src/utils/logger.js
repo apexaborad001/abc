@@ -99,9 +99,9 @@ async function leadGenaratedLogs(conversationData) {
 		});
 	
 		let logger = {
-			Name: conversationData.name,
-			Email: conversationData.email,
-			Timestamp: currentTimestamp(),
+			"Name": conversationData.name,
+			"Email": conversationData.email,
+			"Timestamp": currentTimestamp(),
 			"Phone number": conversationData.phoneNumber,
 			"Lead type": "Bot Automation",
 			"Description/Message": conversationData.description,
