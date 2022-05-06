@@ -56,7 +56,7 @@ async function mail(transport, mailOptions, conversationData,subject) {
 			} else {
 				console.log(info);
 				conversationData.mailStatus = "sent";
-				if(subject !== "Online 24*7") solutionLogs(conversationData,subject);
+				// if(subject !== "Online 24*7") solutionLogs(conversationData,subject);
 				resolve({
 					status: "success",
 					info: info,
