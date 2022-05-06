@@ -95,22 +95,26 @@ async function analyticsLogs() {
 }
 
 async function leadGenaratedLogs(conversationData) {
-	await doc.useServiceAccountAuth({
-		client_email: creds.client_email,
-		private_key: creds.private_key,
-	});
-
-	let logger = {
-		Name: conversationData.name,
-		Email: conversationData.email,
-		Timestamp: currentTimestamp(),
-		"Phone number": conversationData.phoneNumber,
-		"Lead type": "Bot Automation",
-		"Description/Message": conversationData.description,
-	};
-	await doc.loadInfo();
-	const sheet = doc.sheetsByIndex[0];
-	sheet.addRow(logger);
+	try{
+		await doc.useServiceAccountAuth({
+			client_email: creds.client_email,
+			private_key: creds.private_key,
+		});
+	
+		let logger = {
+			Name: conversationData.name,
+			Email: conversationData.email,
+			Timestamp: currentTimestamp(),
+			"Phone number": conversationData.phoneNumber,
+			"Lead type": "Bot Automation",
+			"Description/Message": conversationData.description,
+		};
+		await doc.loadInfo();
+		const sheet = doc.sheetsByIndex[0];
+		sheet.addRow(logger);	
+	}catch(error){
+		console.log({error})
+	}
 }
 
 module.exports = {
