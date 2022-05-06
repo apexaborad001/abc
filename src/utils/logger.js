@@ -1,8 +1,6 @@
 const { GoogleSpreadsheet } = require("google-spreadsheet");
 const creds = require("../../logger-320014-4cb5e5e3ec27.json");
-//const doc = new GoogleSpreadsheet('1h4ww6xNA0rmKFtHXpEbbwdnukILkX0gTVhGX-osw_Lo')
-//const doc = new GoogleSpreadsheet('1zs8a-QVmA_HEPuAs_aNYiNVdG-FZ51jeqHXq-eDsnTE') Dev Id
-const doc = new GoogleSpreadsheet("1-BdTan12VsE93eUl17xaAYzrYGZn4_MRy8-u3c_cQXQ"); //live Id
+const doc = new GoogleSpreadsheet("19IYzDyvT-UFCmGI2NqwXMsLx4eWIOdCd_NlEW1cycKA"); //online 24*7
 function currentTimestamp() {
 	let dt = new Date();
 	let currentOffSet = 330;
