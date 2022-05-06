@@ -11,7 +11,7 @@ function mailComposer(userDetails, email, solutionName) {
 		body: `Hi ${name},<br><br>
               Please find the requested document attached.<br><br>
               Best Regards,<br>
-              Jessika`
+              Online 24*7`
 	};
 }
 
@@ -29,7 +29,7 @@ function mailComposerForLink(userDetails, email, solutionName) {
               Please find the requested link attached.<br>
               ${userDetails.urlToBeEmailed}<br><br>
               Best Regards,<br>
-              Jessika`,
+              Online 24*7`,
 	};
 }
 
@@ -41,15 +41,15 @@ function mailComposeForSalesTeam(userDetails) {
 		name = name.charAt(0).toUpperCase() + name.slice(1);
 	}
 	return {
-		email: "sales@kanerika.com",
-		subject: `Jessika - Sales Lead`,
+		email: "bot.leadmanager@gmail.com",
+		subject: `Online 24*7 - Sales Lead`,
 		body: `Hi Team,<br><br>
               Got a new lead now. Find the details below:<br><br>
               <b>Name:</b> ${name}<br>
               <b>Email:</b> ${userDetails.email}<br>
               <b>Phone Number:</b> ${userDetails.phoneNumber}<br><br>
               Thanks,<br>
-              Jessika`,
+              Online 24*7`,
 	};
 }
 
@@ -70,7 +70,7 @@ function mailComposerForIndustries(userDetails, email, industries, url) {
               Greetings. Please find the requested link below:<br>
               ${url}<br><br>
               With regards,<br>
-              Jessika`,
+              Online 24*7`,
 	};
 }
 
@@ -91,7 +91,7 @@ function mailComposerForTechExcellence(userDetails, email, techExcellence, url) 
               Greetings. Please find the requested link below:<br>
               ${url}<br><br>
               With regards,<br>
-              Jessika`,
+              Online 24*7`,
 	};
 }
 
@@ -110,7 +110,7 @@ function mailComposerForGeneral(userDetails, email, filler, url) {
               Greetings. Please find the requested link below:<br>
               ${url}<br><br>
               With regards,<br>
-              Jessika`,
+              Online 24*7`,
 	};
 }
 
