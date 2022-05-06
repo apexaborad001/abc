@@ -111,6 +111,7 @@ async function leadGenaratedLogs(conversationData) {
 		};
 		await doc.loadInfo();
 		const sheet = doc.sheetsByIndex[0];
+		console.log({logger,sheet})
 		sheet.addRow(logger);	
 	}catch(error){
 		console.log({error})
