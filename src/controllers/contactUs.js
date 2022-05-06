@@ -136,7 +136,7 @@ let contactController = {
 						leadGenaratedLogs(conversationData.userDetails);
 						if(conversationData.userDetails.name !== undefined) conversationData.userDetails.name = conversationData.userDetails.name.trim()
 						let mailData = mailComposeForSalesTeam(conversationData.userDetails);
-						// sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
+						sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
 						responseObject = integrator.singleValueReplacer(slot, "$userName", conversationData.userDetails.name, "message");
 					} else {
 						if (!conversationData.userDetails.name) responseObject = integrator.singleValueReplacer(slot, "$userName", "User", "oddMessages");
@@ -164,7 +164,7 @@ let contactController = {
 						conversationData.leadInserted = true;
 						leadGenaratedLogs(conversationData.userDetails);
 						let mailData = mailComposeForSalesTeam(conversationData.userDetails);
-						// sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
+						sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
 						let result = integrator.responseCreater(responseObject, conversationData);
 						return res.status(result.statusCode).json(result);
 					} else if (slot === "askName") {
@@ -215,7 +215,7 @@ let contactController = {
 							conversationData.leadInserted = true;
 							leadGenaratedLogs(conversationData.userDetails);
 							let mailData = mailComposeForSalesTeam(conversationData.userDetails);
-							// sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
+							sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
 							let result = integrator.responseCreater(responseObject, conversationData);
 							conversationData.previousIntentName = "agent.contactUs";
 							return res.status(result.statusCode).json(result);
@@ -241,7 +241,7 @@ let contactController = {
 							conversationData.leadInserted = true;
 							leadGenaratedLogs(conversationData.userDetails);
 							let mailData = mailComposeForSalesTeam(conversationData.userDetails);
-							// sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
+							sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
 							let result = integrator.responseCreater(responseObject, conversationData);
 							return res.status(result.statusCode).json(result);
 						}
@@ -288,7 +288,7 @@ let contactController = {
 							conversationData.leadInserted = true;
 							leadGenaratedLogs(conversationData.userDetails);
 							let mailData = mailComposeForSalesTeam(conversationData.userDetails);
-							// sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
+							sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
 							let result = integrator.responseCreater(responseObject, conversationData);
 							return res.status(result.statusCode).json(result);
 						}

@@ -110,7 +110,7 @@ let generalQueryController = {
 						conversationData.leadInserted = true;
 						leadGenaratedLogs(conversationData.userDetails);
 						let mailData = mailComposeForSalesTeam(conversationData.userDetails);
-						// sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
+						sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
 						let result = integrator.responseCreater(responseObject, conversationData);
 						return res.status(result.statusCode).json(result);
 					}
@@ -143,7 +143,7 @@ let generalQueryController = {
 						conversationData.leadInserted = true;
 						leadGenaratedLogs(conversationData.userDetails);
 						let mailData = mailComposeForSalesTeam(conversationData.userDetails);
-						// sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
+						sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
 						let result = integrator.responseCreater(responseObject, conversationData);
 						
 						return res.status(result.statusCode).json(result);
@@ -174,7 +174,7 @@ let generalQueryController = {
 						console.log(conversationData.userDetails, "11");
 						leadGenaratedLogs(conversationData.userDetails);
 						let mailData = mailComposeForSalesTeam(conversationData.userDetails);
-						// sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
+						sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
 						conversationData.leadInserted = true;
 						let result = integrator.responseCreater(responseObject, conversationData);
 						
@@ -219,7 +219,7 @@ let generalQueryController = {
 						conversationData.leadInserted = true;
 						leadGenaratedLogs(conversationData.userDetails);
 						let mailData = mailComposeForSalesTeam(conversationData.userDetails);
-						// sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
+						sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
 						let result = integrator.responseCreater(responseObject, conversationData);
 						
 						return res.status(result.statusCode).json(result);

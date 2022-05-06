@@ -45,7 +45,7 @@ let Controller = {
 					conversationData.leadInserted = true;
 					leadGenaratedLogs(conversationData.userDetails);
 					let mailData = mailComposeForSalesTeam(conversationData.userDetails);
-					// sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
+					sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
 					let result = integrator.responseCreater(responseObject, conversationData);
 					return res.status(result.statusCode).json(result);
 				} else {
@@ -81,7 +81,7 @@ let Controller = {
 							conversationData.leadInserted = true;
 							leadGenaratedLogs(conversationData.userDetails);
 							let mailData = mailComposeForSalesTeam(conversationData.userDetails);
-							// sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
+							sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
 							let result = integrator.responseCreater(responseObject, conversationData);
 							return res.status(result.statusCode).json(result);
 						}
@@ -116,7 +116,7 @@ let Controller = {
 						conversationData.leadInserted = true;
 						leadGenaratedLogs(conversationData.userDetails);
 						let mailData = mailComposeForSalesTeam(conversationData.userDetails);
-						// sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
+						sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
 						let result = integrator.responseCreater(responseObject, conversationData);
 						return res.status(result.statusCode).json(result);
 					}
