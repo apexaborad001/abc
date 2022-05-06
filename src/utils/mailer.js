@@ -2,7 +2,6 @@ const nodemailer = require("nodemailer");
 const credentials = require("../config/config");
 const { google } = require("googleapis");
 const { solutionLogs } = require("./logger");
-const json = require("../../jessica-bot-mailer-e49ad1aaa384.json");
 const OAuth2 = google.auth.OAuth2;
 
 async function sendMail(emailId, subject, body, attachment, conversationData) {
@@ -25,7 +24,7 @@ async function sendMail(emailId, subject, body, attachment, conversationData) {
 			},
 		});
 		const mailOptions = {
-			from:`Jessika <${credentials.mailCreds.email}>` , // sender address
+			from:`Online 24*7 <${credentials.mailCreds.email}>` , // sender address
 			to: emailId, // list of receivers
 			subject: subject, // Subject line
 			html: body, // plain text body
@@ -57,7 +56,7 @@ async function mail(transport, mailOptions, conversationData,subject) {
 			} else {
 				console.log(info);
 				conversationData.mailStatus = "sent";
-				if(subject !== "Jessika - Sales Lead") solutionLogs(conversationData,subject);
+				if(subject !== "Online 24*7") solutionLogs(conversationData,subject);
 				resolve({
 					status: "success",
 					info: info,
