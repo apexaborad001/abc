@@ -86,7 +86,7 @@ let generalQueryController = {
 			console.log({ getSlotAnsweredData });
 			conversationData.slotsAnswered = getSlotAnsweredData;
 			console.log(conversationData.userDetails, conversationData.slotsAnswered);
-			// if (conversationData.previousIntentName === "agent.contactUs") {
+			if (conversationData.previousIntentName === "agent.contactUs") {
 			console.log({ emailData, phoneNumberData })
 			if (emailData.isGiven && emailData.verifiedStatus && emailData.isBusinessEmail) {
 				conversationData.slotsAnswered.push("askEmail");
@@ -245,7 +245,15 @@ let generalQueryController = {
 					return res.status(result.statusCode).json(result);
 				}
 			}
-			// }
+			}else if(conversationData.previousIntentName === "agent.readMore"){
+				if (!conversationData.userDetails) conversationData.userDetails = {};
+				conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/";
+				let mailData = mailComposerForLink(conversationData.userDetails);
+				sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
+				responseObject = response.conditionCreater("sendLinkToMail");
+			}else{
+				responseObject = response.conditionCreater("Default response");
+			};
 			console.log({ responseObject })
 			responseObject.map((ele) => {
 				console.log(ele.conditions, "conditions");
@@ -305,6 +313,7 @@ let generalQueryController = {
 				responseObject = response.conditionCreater("sendLinkToMail");
 			} else {
 				responseObject = response.conditionCreater("askMail");
+				conversationData.previousIntentName = "agent.readMore";
 			};
 			res.status(await response.getStatus(responseObject)).send(await response.displayResponse(responseObject, conversationData));
 		} catch (error) {
