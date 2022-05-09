@@ -264,7 +264,25 @@ let generalQueryController = {
 		try {
             const conversationData = req?.body?.conversationData;
             if(conversationData.previousIntentName = "agent.contactUs"){
-                responseObject = response.conditionCreater("skipPhoneNo");
+                // responseObject = response.conditionCreater("skipPhoneNo");
+				responseObject = integrator.singleValueReplacer("skipPhoneNo", "$userName", conversationData?.userDetails?.name, "message");
+                // delete conversationData?.userDetails;
+            }else{
+                responseObject = response.conditionCreater("Default response");
+            };
+            res.status(await response.getStatus(responseObject)).send(await response.displayResponse(responseObject, conversationData));
+        } catch (error) {
+            const conversationData = req?.body?.conversationData;
+            const responseObject = [];
+            res.status(await response.getStatus(responseObject)).send(await response.displayResponse(responseObject, conversationData));
+        }
+	},
+	no: async (req, res) => {
+		try {
+            const conversationData = req?.body?.conversationData;
+            if(conversationData.previousIntentName = "agent.contactUs"){
+                // responseObject = response.conditionCreater("skipPhoneNo");
+				responseObject = integrator.singleValueReplacer("skipPhoneNo", "$userName", conversationData?.userDetails?.name, "message");
                 // delete conversationData?.userDetails;
             }else{
                 responseObject = response.conditionCreater("Default response");
