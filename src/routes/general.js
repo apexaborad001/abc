@@ -1,7 +1,8 @@
 const router = require("express").Router()
-const { emailAndPhone }  = require('../controllers/general');
+const generalRoutes  = require('../controllers/general');
 
-router.post("/emailandPhone", emailAndPhone);
+router.post("/emailandPhone", generalRoutes?.emailAndPhone);
+router.post("/skip", generalRoutes?.skip);
 
 module.exports = router; 
 

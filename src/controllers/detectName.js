@@ -14,7 +14,7 @@ let Controller = {
 			let responseObject = [];
 			let nameData = nameRecognizer(conversationData);
 			console.log(nameData);
-			if (conversationData.leadInserted && conversationData.intentNameByCordinator === "agent.") {
+			if (conversationData.leadInserted && conversationData.intentNameByCordinator === "agent.contactUs") {
 				let result = integrator.responseCreater(integrator.conditionCreater("leadAlreadyCaptured"), conversationData);
 				return res.status(result.statusCode).json(result);
 			}
