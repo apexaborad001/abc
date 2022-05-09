@@ -294,6 +294,21 @@ let generalQueryController = {
             res.status(await response.getStatus(responseObject)).send(await response.displayResponse(responseObject, conversationData));
         }
 	},
+	readMore: async (req, res) => {
+		try {
+            const conversationData = req?.body?.conversationData;
+			if(!conversationData.userDetails) conversationData.userDetails = {};
+			conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/";
+			let mailData = mailComposerForLink(conversationData.userDetails);
+			sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
+			responseObject = response.conditionCreater("sendLinkToMail");
+            res.status(await response.getStatus(responseObject)).send(await response.displayResponse(responseObject, conversationData));
+        } catch (error) {
+            const conversationData = req?.body?.conversationData;
+            const responseObject = [];
+            res.status(await response.getStatus(responseObject)).send(await response.displayResponse(responseObject, conversationData));
+        }
+	},
 	// emailAndPhone: async (req, res) => {
 	// 	let conversationData = req.body.conversationData;
 	// 	try {

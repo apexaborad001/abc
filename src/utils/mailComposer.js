@@ -15,6 +15,24 @@ function mailComposer(userDetails, email, solutionName) {
 	};
 }
 
+// function mailComposerForLink(userDetails, email, solutionName) {
+// 	let name = "";
+// 	if (userDetails.name !== undefined) name = userDetails.name;
+// 	else {
+// 		name = email.split("@")[0];
+// 		name = name.charAt(0).toUpperCase() + name.slice(1);
+// 	}
+// 	return {
+// 		email,
+// 		subject: `Case Study Link of ${solutionName}`,
+// 		body: `Hi ${name},<br><br>
+//               Please find the requested link attached.<br>
+//               ${userDetails.urlToBeEmailed}<br><br>
+//               Best Regards,<br>
+//               Online 24*7`,
+// 	};
+// }
+
 function mailComposerForLink(userDetails, email, solutionName) {
 	let name = "";
 	if (userDetails.name !== undefined) name = userDetails.name;
@@ -24,12 +42,17 @@ function mailComposerForLink(userDetails, email, solutionName) {
 	}
 	return {
 		email,
-		subject: `Case Study Link of ${solutionName}`,
-		body: `Hi ${name},<br><br>
+		subject: `Please find the more details for the requested info:`,
+		body: `Hi,<br><br>
               Please find the requested link attached.<br>
               ${userDetails.urlToBeEmailed}<br><br>
               Best Regards,<br>
               Online 24*7`,
+		// body: `Hi ${name},<br><br>
+        //       Please find the requested link attached.<br>
+        //       ${userDetails.urlToBeEmailed}<br><br>
+        //       Best Regards,<br>
+        //       Online 24*7`,
 	};
 }
 
