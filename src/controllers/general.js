@@ -250,9 +250,9 @@ let generalQueryController = {
 				conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/";
 				let mailData = mailComposerForLink(conversationData.userDetails);
 				sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
-				responseObject = response.conditionCreater("sendLinkToMail");
+				responseObject = integrator.conditionCreater("sendLinkToMail");
 			}else{
-				responseObject = response.conditionCreater("Default response");
+				responseObject = integrator.conditionCreater("Default response");
 			};
 			console.log({ responseObject })
 			responseObject.map((ele) => {
@@ -272,34 +272,34 @@ let generalQueryController = {
 		try {
 			const conversationData = req?.body?.conversationData;
 			if (conversationData.previousIntentName = "agent.contactUs") {
-				// responseObject = response.conditionCreater("skipPhoneNo");
 				responseObject = integrator.singleValueReplacer("skipPhoneNo", "$userName", conversationData?.userDetails?.name, "message");
 				// delete conversationData?.userDetails;
 			} else {
-				responseObject = response.conditionCreater("Default response");
+				responseObject = integrator.conditionCreater("Default response");
 			};
-			res.status(await response.getStatus(responseObject)).send(await response.displayResponse(responseObject, conversationData));
+			let result = integrator.responseCreater(responseObject, conversationData);
+			res.status(result.statusCode).json(result);
 		} catch (error) {
 			const conversationData = req?.body?.conversationData;
-			const responseObject = [];
-			res.status(await response.getStatus(responseObject)).send(await response.displayResponse(responseObject, conversationData));
+			let result = integrator.responseCreater(integrator.conditionCreater("Default response"), conversationData);
+			res.status(result.statusCode).json(result);
 		}
 	},
 	no: async (req, res) => {
 		try {
 			const conversationData = req?.body?.conversationData;
 			if (conversationData.previousIntentName = "agent.contactUs") {
-				// responseObject = response.conditionCreater("skipPhoneNo");
 				responseObject = integrator.singleValueReplacer("skipPhoneNo", "$userName", conversationData?.userDetails?.name, "message");
 				// delete conversationData?.userDetails;
 			} else {
-				responseObject = response.conditionCreater("Default response");
+				responseObject = integrator.conditionCreater("Default response");
 			};
-			res.status(await response.getStatus(responseObject)).send(await response.displayResponse(responseObject, conversationData));
+			let result = integrator.responseCreater(responseObject, conversationData);
+			res.status(result.statusCode).json(result);
 		} catch (error) {
 			const conversationData = req?.body?.conversationData;
-			const responseObject = [];
-			res.status(await response.getStatus(responseObject)).send(await response.displayResponse(responseObject, conversationData));
+			let result = integrator.responseCreater(integrator.conditionCreater("Default response"), conversationData);
+			res.status(result.statusCode).json(result);
 		}
 	},
 	readMore: async (req, res) => {
@@ -310,16 +310,17 @@ let generalQueryController = {
 			if (conversationData?.userDetails?.email) {
 				let mailData = mailComposerForLink(conversationData.userDetails);
 				sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
-				responseObject = response.conditionCreater("sendLinkToMail");
+				responseObject = integrator.conditionCreater("sendLinkToMail");
 			} else {
-				responseObject = response.conditionCreater("askMail");
+				responseObject = integrator.conditionCreater("askMail");
 				conversationData.previousIntentName = "agent.readMore";
 			};
-			res.status(await response.getStatus(responseObject)).send(await response.displayResponse(responseObject, conversationData));
+			let result = integrator.responseCreater(responseObject, conversationData);
+			res.status(result.statusCode).json(result);
 		} catch (error) {
 			const conversationData = req?.body?.conversationData;
-			const responseObject = [];
-			res.status(await response.getStatus(responseObject)).send(await response.displayResponse(responseObject, conversationData));
+			let result = integrator.responseCreater(integrator.conditionCreater("Default response"), conversationData);
+			res.status(result.statusCode).json(result);
 		}
 	},
 	// emailAndPhone: async (req, res) => {
