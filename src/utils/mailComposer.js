@@ -1,4 +1,5 @@
 function mailComposer(userDetails, email, solutionName) {
+	console.log(userDetails,email)
 	let name = "";
 	if (userDetails.name !== undefined) name = userDetails.name;
 	else {
@@ -37,7 +38,7 @@ function mailComposerForLink(userDetails, email, solutionName) {
 	let name = "";
 	if (userDetails.name !== undefined) name = userDetails.name;
 	else {
-		name = email.split("@")[0];
+		if(email) name = email.split("@")[0];
 		name = name.charAt(0).toUpperCase() + name.slice(1);
 	}
 	return {
