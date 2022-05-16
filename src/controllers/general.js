@@ -306,12 +306,8 @@ let generalQueryController = {
 	readMore: async (req, res) => {
 		try {
 			const conversationData = req?.body?.conversationData;
-			// const previousIntentName =conversationData.previousIntentName
-
-			// conversationData.previousIntent = agent.locationIdentification;
 			if (!conversationData.userDetails) conversationData.userDetails = {};
 			console.log("conversationData",conversationData);
-			// console.log("previousData",conversationData.previousIntentName)
 			conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/";
 			if (conversationData?.userDetails?.email) {
 				let mailData = mailComposerForLink(conversationData.userDetails,conversationData?.userDetails?.email);
@@ -329,6 +325,17 @@ let generalQueryController = {
 			res.status(result.statusCode).json(result);
 		}
 	},
+	previousIntentList:async(req,res)=>{
+		try{
+			const conversationData=req?.body?.conversationData
+			// conversationData.previousIntent = "agent.locationIdentification";
+			conversationData.previousIntent = agent.locationIdentification;
+			console.log(conversationData.previousIntent)
+
+		}catch(e){
+
+		}
+	}
 	
 	// emailAndPhone: async (req, res) => {
 	// 	let conversationData = req.body.conversationData;
