@@ -271,6 +271,7 @@ let generalQueryController = {
 	skip: async (req, res) => {
 		try {
 			const conversationData = req?.body?.conversationData;
+			const previousIntentName =conversationData.previousIntentName
 			if (conversationData.previousIntentName = "agent.contactUs") {
 				responseObject = integrator.singleValueReplacer("skipPhoneNo", "$userName", conversationData?.userDetails?.name, "message");
 				// delete conversationData?.userDetails;
@@ -306,6 +307,7 @@ let generalQueryController = {
 		try {
 			const conversationData = req?.body?.conversationData;
 			if (!conversationData.userDetails) conversationData.userDetails = {};
+			console.log("conversationData",conversationData);
 			conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/";
 			if (conversationData?.userDetails?.email) {
 				let mailData = mailComposerForLink(conversationData.userDetails,conversationData?.userDetails?.email);

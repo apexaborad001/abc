@@ -16,7 +16,7 @@ let credentials = {
 	mailCreds : {
 		clientId: "362207612748-fgkpbpnkp41m2jitruvt6st36eat26h6.apps.googleusercontent.com",
 		clientSecret: "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",
-		refreshToken: "1//04vV8nJQDUuM4CgYIARAAGAQSNwF-L9Ir1jNoNHmyyfYisji-N_l7DtriEs01yBPUWXLZwI0zPx-S3IPeuAg1kLAvz31lXCaw9dY",
+		refreshToken: "1//047ixLhzaUbUuCgYIARAAGAQSNwF-L9IrFwaAOhgicQxIF8rq0xhYTZ_pos9366l3kXGSVVudGTgJ2PrENrSr8fNQUCCKZUQLRdw",
 		email: "bot.leadmanager@gmail.com",
 		url: "https://developers.google.com/oauthplayground",
 	}
