@@ -309,7 +309,7 @@ let generalQueryController = {
 			const previousIntentName =conversationData.previousIntentName
 			if (!conversationData.userDetails) conversationData.userDetails = {};
 			console.log("conversationData",conversationData);
-			console.log("previousData",previousIntentName)
+			console.log("previousData",conversationData.previousIntentName)
 			conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/";
 			if (conversationData?.userDetails?.email) {
 				let mailData = mailComposerForLink(conversationData.userDetails,conversationData?.userDetails?.email);
