@@ -330,7 +330,9 @@ let generalQueryController = {
 			const conversationData=req?.body?.conversationData
 			// conversationData.previousIntent = "agent.locationIdentification";
 			conversationData.previousIntent = agent.locationIdentification;
-			console.log(conversationData.previousIntent)
+			console.log("aaaa"+conversationData.previousIntent)
+			let result=integrator.responseCreater(integrator.conditionCreater("Default response"),conversationData)
+			res.status(result.statusCode).json(result)
 
 		}catch(e){
 
