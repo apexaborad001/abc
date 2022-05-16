@@ -308,7 +308,7 @@ let generalQueryController = {
 			const conversationData = req?.body?.conversationData;
 			const previousIntentName =conversationData.previousIntentName
 
-			conversationData.previousIntent = agent.locationIdentification;
+			// conversationData.previousIntent = agent.locationIdentification;
 			if (!conversationData.userDetails) conversationData.userDetails = {};
 			console.log("conversationData",conversationData);
 			console.log("previousData",conversationData.previousIntentName)
