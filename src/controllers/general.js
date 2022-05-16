@@ -327,6 +327,11 @@ let generalQueryController = {
 			res.status(result.statusCode).json(result);
 		}
 	},
+	previousIntentList:async(req,res)=>{
+		const conversationData=req?.body?.conversationData
+		let previousData=[]
+		console.log(conversationData)
+	}
 	// emailAndPhone: async (req, res) => {
 	// 	let conversationData = req.body.conversationData;
 	// 	try {
