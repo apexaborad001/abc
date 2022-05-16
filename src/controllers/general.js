@@ -306,8 +306,10 @@ let generalQueryController = {
 	readMore: async (req, res) => {
 		try {
 			const conversationData = req?.body?.conversationData;
+			const previousIntentName =conversationData.previousIntentName
 			if (!conversationData.userDetails) conversationData.userDetails = {};
 			console.log("conversationData",conversationData);
+			console.log("previousData",previousIntentName)
 			conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/";
 			if (conversationData?.userDetails?.email) {
 				let mailData = mailComposerForLink(conversationData.userDetails,conversationData?.userDetails?.email);
