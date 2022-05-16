@@ -309,7 +309,6 @@ let generalQueryController = {
 			const previousIntentName =conversationData.previousIntentName
 
 			conversationData.previousIntent = agent.locationIdentification;
-			console.log(conversationData.previousIntent)
 			if (!conversationData.userDetails) conversationData.userDetails = {};
 			console.log("conversationData",conversationData);
 			console.log("previousData",conversationData.previousIntentName)
