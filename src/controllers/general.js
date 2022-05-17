@@ -14,6 +14,7 @@ const { allSlots } = require("./contactUs");
 const { leadGenaratedLogs } = require("../utils/logger.js");
 // const { technologiesExcellence, innovationLabs, urlsForIndustries, digitalCounsulting } = require("./solutions");
 const { slotData } = require("../utils/supporter");
+const { androidmanagement } = require("googleapis/build/src/apis/androidmanagement");
  
 let generalQueryController = {
 	emailAndPhone: async (req, res) => {
@@ -309,6 +310,7 @@ let generalQueryController = {
 			if (!conversationData.userDetails) conversationData.userDetails = {};
 			console.log("conversationData",conversationData);
 			conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/";
+			if(conversationData.previousIntentName==="agent.logistics")conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/Industries/Logistics";
 			if (conversationData?.userDetails?.email) {
 				let mailData = mailComposerForLink(conversationData.userDetails,conversationData?.userDetails?.email);
 				sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
