@@ -19,7 +19,7 @@ let generalQueryController = {
 	
 	logistics: async (req, res) => {
 		try {
-            
+            conversationData.previousIntentName = "agent.logistics";
 			const conversationData = req?.body?.conversationData;
 			responseObject = integrator.conditionCreater(integrator.conditionCreater("Default response"));
 			let result = integrator.responseCreater(responseObject, conversationData);

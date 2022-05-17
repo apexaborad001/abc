@@ -248,7 +248,7 @@ let generalQueryController = {
 			}
 			}
 			else if(conversationData.previousIntentName==="agent.logistics"){
-
+				if (!conversationData.userDetails) conversationData.userDetails = {};
 				conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/Industries/Logistics";
 				let mailData = mailComposerForLink(conversationData.userDetails,conversationData?.userDetails?.email);
 				sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
@@ -314,6 +314,20 @@ let generalQueryController = {
 			const conversationData = req?.body?.conversationData;
 			let result = integrator.responseCreater(integrator.conditionCreater("Default response"), conversationData);
 			res.status(result.statusCode).json(result);
+		}
+	},
+	logistics:async(req,res)=>{
+		try{
+			
+			const conversationData=req?.body?.conversationData;
+			if(!conversationData.userDetails)conversationData.userDetails={}
+			console.log(conversationData)
+			if(conversationData.previousIntentName==="agent.logistics"){
+				conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/Industries/Logistics"
+			}
+
+		}catch(e){
+		
 		}
 	},
 	readMore: async (req, res) => {
