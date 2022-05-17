@@ -316,20 +316,6 @@ let generalQueryController = {
 			res.status(result.statusCode).json(result);
 		}
 	},
-	logistics:async(req,res)=>{
-		try{
-			
-			const conversationData=req?.body?.conversationData;
-			if(!conversationData.userDetails)conversationData.userDetails={}
-			console.log(conversationData)
-			if(conversationData.previousIntentName==="agent.logistics"){
-				conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/Industries/Logistics"
-			}
-
-		}catch(e){
-		
-		}
-	},
 	readMore: async (req, res) => {
 		try {
 			const conversationData = req?.body?.conversationData;
