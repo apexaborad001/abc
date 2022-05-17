@@ -21,16 +21,17 @@ let generalQueryController = {
 		try {
 			const conversationData = req?.body?.conversationData;
             conversationData.previousIntentName = "agent.logistics";
+            if(conversationData.previousIntentName==="agent.logistics")conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/Industries/Logistics"
+
 			responseObject = integrator.conditionCreater(integrator.conditionCreater("Default response"));
 			let result = integrator.responseCreater(responseObject, conversationData);
 			res.status(result.statusCode).json(result);
-		} catch (error) {
+		}catch (error) {
 			const conversationData = req?.body?.conversationData;
 			let result = integrator.responseCreater(integrator.conditionCreater("Default response"), conversationData);
 			res.status(result.statusCode).json(result);
 		}
 	}
-
 
 }
 
