@@ -31,6 +31,8 @@ let generalQueryController = {
 			res.status(result.statusCode).json(result);
 		}
 	}
+
+    
 }
 
 module.exports = generalQueryController;
