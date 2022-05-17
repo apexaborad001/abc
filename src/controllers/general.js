@@ -14,7 +14,7 @@ const { allSlots } = require("./contactUs");
 const { leadGenaratedLogs } = require("../utils/logger.js");
 // const { technologiesExcellence, innovationLabs, urlsForIndustries, digitalCounsulting } = require("./solutions");
 const { slotData } = require("../utils/supporter");
-
+ 
 let generalQueryController = {
 	emailAndPhone: async (req, res) => {
 		let conversationData = req.body.conversationData;
@@ -325,19 +325,22 @@ let generalQueryController = {
 			res.status(result.statusCode).json(result);
 		}
 	},
-	previousIntentList:async(req,res)=>{
-		try{
-			const conversationData=req?.body?.conversationData
-			// conversationData.previousIntent = "agent.locationIdentification";
-			conversationData.previousIntent = agent.locationIdentification;
-			console.log("aaaa"+conversationData.previousIntent)
-			let result=integrator.responseCreater(integrator.conditionCreater("Default response"),conversationData)
-			res.status(result.statusCode).json(result)
+	// previousIntentList:async(req,res)=>{
+	// 	try{
+	// 		const conversationData=req?.body?.conversationData
+	// 		// conversationData.previousIntent = "agent.locationIdentification";
+	// 		conversationData.previousIntent = agent.locationIdentification;
+	// 		console.log("aaaa"+conversationData.previousIntent)
+	// 		let result=integrator.responseCreater(integrator.conditionCreater("Default response"),conversationData)
+	// 		res.status(result.statusCode).json(result)
 
-		}catch(e){
+	// 	}catch(e){
+	// 		const conversationData=req?.body?.conversationData
+	// 		let result=integrator.responseCreater(integrator.conditionCreater("Default response"),conversationData)
+	// 		res.status(result.statusCode).json(result)
 
-		}
-	}
+	// 	}
+	// }
 	
 	// emailAndPhone: async (req, res) => {
 	// 	let conversationData = req.body.conversationData;
