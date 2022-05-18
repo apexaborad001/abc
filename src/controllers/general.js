@@ -32,7 +32,7 @@ let generalQueryController = {
 			if (!conversationData.slotsAnswered) conversationData.slotsAnswered = [];
 			if (conversationData.leadInserted && conversationData.intentNameByCordinator === "agent.contactUs") {
 				let result = integrator.responseCreater(integrator.conditionCreater("leadAlreadyCaptured"), conversationData);
-
+				
 				return res.status(result.statusCode).json(result);
 			}
 			for (let key in slotValues) {
@@ -322,7 +322,7 @@ let generalQueryController = {
 			if (!conversationData.userDetails) conversationData.userDetails = {};
 			console.log("conversationData",conversationData);
 			if(conversationData.previousIntentName==="agent.logistics")conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/Industries/Logistics"
-			conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/";
+			// conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/";
 			if (conversationData?.userDetails?.email) {
 				let mailData = mailComposerForLink(conversationData.userDetails,conversationData?.userDetails?.email);
 				console.log("mail data"+mailData)
@@ -434,7 +434,7 @@ let generalQueryController = {
 	// 					conversationData.isEmailAsked = false;
 	// 					conversationData.slotsAnswered.push("askEmail");
 	// 					conversationData.slotsAnswered;
-	// 					let mailData = mailComposerForIndustries(
+	// 					let mailData = mailComposerForIndustries( 
 	// 						conversationData.userDetails,
 	// 						emailData.data,
 	// 						conversationData.industrySelected,
