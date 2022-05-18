@@ -321,7 +321,8 @@ let generalQueryController = {
 			const conversationData = req?.body?.conversationData;
 			if (!conversationData.userDetails) conversationData.userDetails = {};
 			console.log("conversationData",conversationData);
-			conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/";
+			if(conversationData.previousIntentName==="agent.logistics")conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/Industries/Logistics"
+			// conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/";
 			if (conversationData?.userDetails?.email) {
 				let mailData = mailComposerForLink(conversationData.userDetails,conversationData?.userDetails?.email);
 				console.log("mail data"+mailData)
@@ -334,7 +335,7 @@ let generalQueryController = {
 			let result = integrator.responseCreater(responseObject, conversationData);
 			res.status(result.statusCode).json(result);
 		} catch (error) {
-			const conversationData = req?.body?.conversationData;
+			const conversationData = req?.body?.conversationData; 
 			let result = integrator.responseCreater(integrator.conditionCreater("Default response"), conversationData);
 			res.status(result.statusCode).json(result);
 		}
