@@ -21,7 +21,7 @@ let generalQueryController = {
 		try {
 			const conversationData = req?.body?.conversationData;
             conversationData.previousIntentName = "agent.logistics";
-            if(conversationData.previousIntentName==="agent.logistics")conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/Industries/Logistics"
+            if(conversationData.previousIntentName==="agent.readMore")conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/Industries/Logistics"
 
 			responseObject = integrator.conditionCreater(integrator.conditionCreater("Default response"));
 			let result = integrator.responseCreater(responseObject, conversationData);
