@@ -257,9 +257,9 @@ let generalQueryController = {
 
 			}else if(conversationData.previousIntentName === "agent.readMore"){
 				if (!conversationData.userDetails) conversationData.userDetails = {};
-				if(conversationData.previousIntentName==="agent.logistics"){
-					conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/Industries/Logistics";
-					// conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/";
+				// if(conversationData.previousIntentName==="agent.logistics"){
+				// 	conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/Industries/Logistics";
+					conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/";
 					let mailData = mailComposerForLink(conversationData.userDetails,conversationData?.userDetails?.email);
 				sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
 				responseObject = integrator.conditionCreater("sendLinkToMail");
