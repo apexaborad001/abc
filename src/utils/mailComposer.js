@@ -46,7 +46,7 @@ function mailComposerForLink(userDetails, email, solutionName) {
 		subject: `Please find the more details for the requested info:`,
 		body: `Hi,<br><br>
               Please find the requested link attached.<br>
-              ${slotValues.details.urlToBeEmailed}<br><br>
+              ${userDetails.urlToBeEmailed}<br><br>
               Best Regards,<br>
               Online 24*7`,
 		// body: `Hi ${name},<br><br>
