@@ -332,8 +332,8 @@ let generalQueryController = {
 			const conversationData = req?.body?.conversationData;
 			if (!conversationData.userDetails) conversationData.userDetails = {};
 			console.log("conversationData", conversationData);
-			if (conversationData.previousIntentName === "agent.logistics") conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/Industries/Logistics"
 			conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/";
+			if (conversationData.previousIntentName === "agent.logistics") conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/Industries/Logistics"
 			if(conversationData.previousIntentName === "agent.retail") conversationData.userDetails.urlToBeEmailed="https://online24x7.net/Industries/Retail"
 			if (conversationData?.userDetails?.email) {
 				let mailData = mailComposerForLink(conversationData.urlToBeEmailed, conversationData?.userDetails?.email);
