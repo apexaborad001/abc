@@ -129,6 +129,63 @@ let generalQueryController = {
 			res.status(result.statusCode).json(result);
 		}
 	},
+	facilityManagement:async (req, res) => {
+		try {
+			const conversationData = req?.body?.conversationData;
+            conversationData.previousIntentName = "agent.facilityManagement";
+            if(conversationData.previousIntentName==="agent.readMore")conversationData.userDetails.urlToBeEmailed ="https://online24x7.net/Industries/Facility-Management" 
+			responseObject = integrator.conditionCreater(integrator.conditionCreater("Default response"));
+			let result = integrator.responseCreater(responseObject, conversationData);
+			res.status(result.statusCode).json(result);
+		}catch (error) {
+			const conversationData = req?.body?.conversationData;
+			let result = integrator.responseCreater(integrator.conditionCreater("Default response"), conversationData);
+			res.status(result.statusCode).json(result);
+		}
+	},
+	mining:async (req, res) => {
+		try {
+			const conversationData = req?.body?.conversationData;
+            conversationData.previousIntentName = "agent.mining";
+            if(conversationData.previousIntentName==="agent.readMore")conversationData.userDetails.urlToBeEmailed ="https://online24x7.net/Industries/Mining" 
+			responseObject = integrator.conditionCreater(integrator.conditionCreater("Default response"));
+			let result = integrator.responseCreater(responseObject, conversationData);
+			res.status(result.statusCode).json(result);
+		}catch (error) {
+			const conversationData = req?.body?.conversationData;
+			let result = integrator.responseCreater(integrator.conditionCreater("Default response"), conversationData);
+			res.status(result.statusCode).json(result);
+		}
+	},
+	services:async (req, res) => {
+		try {
+			const conversationData = req?.body?.conversationData;
+            conversationData.previousIntentName = "agent.services";
+            if(conversationData.previousIntentName==="agent.readMore")conversationData.userDetails.urlToBeEmailed ="https://online24x7.net/Industries/Services" 
+			responseObject = integrator.conditionCreater(integrator.conditionCreater("Default response"));
+			let result = integrator.responseCreater(responseObject, conversationData);
+			res.status(result.statusCode).json(result);
+		}catch (error) {
+			const conversationData = req?.body?.conversationData;
+			let result = integrator.responseCreater(integrator.conditionCreater("Default response"), conversationData);
+			res.status(result.statusCode).json(result);
+		}
+	},
+	microsoftViva:async (req, res) => {
+		try {
+			const conversationData = req?.body?.conversationData;
+            conversationData.previousIntentName = "agent.microsoftViva";
+            if(conversationData.previousIntentName==="agent.readMore")conversationData.userDetails.urlToBeEmailed ="https://online24x7.net/Industries/MicrosoftViva" 
+			responseObject = integrator.conditionCreater(integrator.conditionCreater("Default response"));
+			let result = integrator.responseCreater(responseObject, conversationData);
+			res.status(result.statusCode).json(result);
+		}catch (error) {
+			const conversationData = req?.body?.conversationData;
+			let result = integrator.responseCreater(integrator.conditionCreater("Default response"), conversationData);
+			res.status(result.statusCode).json(result);
+		}
+	},
+
 
 }
 

@@ -8,6 +8,13 @@ router.post("/goverment",industriesRoutes.goverment)
 router.post("/trading",industriesRoutes.trading)
 router.post("/equipmentRentalServices",industriesRoutes.equipmentRentalServices)
 router.post("/healthcare",industriesRoutes.healthcare)
+router.post("/facilityManagement",industriesRoutes.facilityManagement)
+router.post("/mining",industriesRoutes.mining)
+router.post("/services",industriesRoutes.services)
+router.post("/microsoftViva",industriesRoutes.microsoftViva)
+
+
+
 module.exports = router; 
 
 

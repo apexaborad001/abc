@@ -341,9 +341,10 @@ let generalQueryController = {
 			if(conversationData.previousIntentName==="agent.Trading")conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/Industries/Trading"
 			if(conversationData.previousIntentName==="agent.equipmentRentalsServices")conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/Industries/Equipment-Rental-Services"
 			if(conversationData.previousIntentName==="agent.healthcare")conversationData.userDetails.urlToBeEmailed ="https://online24x7.net/Industries/Healthcare" 
-
-
-
+			if(conversationData.previousIntentName==="agent.facilityManagement")conversationData.userDetails.urlToBeEmailed ="https://online24x7.net/Industries/Facility-Management"
+			if(conversationData.previousIntentName==="agent.mining")conversationData.userDetails.urlToBeEmailed ="https://online24x7.net/Industries/Mining" 
+            if(conversationData.previousIntentName==="agent.services")conversationData.userDetails.urlToBeEmailed ="https://online24x7.net/Industries/Services"
+			if(conversationData.previousIntentName==="agent.microsoftViva")conversationData.userDetails.urlToBeEmailed ="https://online24x7.net/Industries/MicrosoftViva" 
 
 			if (conversationData?.userDetails?.email) {
 				let mailData = mailComposerForLink(conversationData.urlToBeEmailed, conversationData?.userDetails?.email);
