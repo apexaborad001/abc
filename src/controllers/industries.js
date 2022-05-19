@@ -101,6 +101,34 @@ let generalQueryController = {
 			res.status(result.statusCode).json(result);
 		}
 	},
+	equipmentRentalServices:async (req, res) => {
+		try {
+			const conversationData = req?.body?.conversationData;
+            conversationData.previousIntentName = "agent.equipmentRentalsServices";
+            if(conversationData.previousIntentName==="agent.readMore")conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/Industries/Equipment-Rental-Services"
+			responseObject = integrator.conditionCreater(integrator.conditionCreater("Default response"));
+			let result = integrator.responseCreater(responseObject, conversationData);
+			res.status(result.statusCode).json(result);
+		}catch (error) {
+			const conversationData = req?.body?.conversationData;
+			let result = integrator.responseCreater(integrator.conditionCreater("Default response"), conversationData);
+			res.status(result.statusCode).json(result);
+		}
+	},
+	healthcare:async (req, res) => {
+		try {
+			const conversationData = req?.body?.conversationData;
+            conversationData.previousIntentName = "agent.healthcare";
+            if(conversationData.previousIntentName==="agent.readMore")conversationData.userDetails.urlToBeEmailed ="https://online24x7.net/Industries/Healthcare" 
+			responseObject = integrator.conditionCreater(integrator.conditionCreater("Default response"));
+			let result = integrator.responseCreater(responseObject, conversationData);
+			res.status(result.statusCode).json(result);
+		}catch (error) {
+			const conversationData = req?.body?.conversationData;
+			let result = integrator.responseCreater(integrator.conditionCreater("Default response"), conversationData);
+			res.status(result.statusCode).json(result);
+		}
+	},
 
 }
 

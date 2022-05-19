@@ -339,7 +339,12 @@ let generalQueryController = {
 			if(conversationData.previousIntentName==="agent.goverment")conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/Industries/Government"
 			if(conversationData.previousIntentName==="agent.professionalServices")conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/Industries/Professional-Services"
 			if(conversationData.previousIntentName==="agent.Trading")conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/Industries/Trading"
-			
+			if(conversationData.previousIntentName==="agent.equipmentRentalsServices")conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/Industries/Equipment-Rental-Services"
+			if(conversationData.previousIntentName==="agent.healthcare")conversationData.userDetails.urlToBeEmailed ="https://online24x7.net/Industries/Healthcare" 
+
+
+
+
 			if (conversationData?.userDetails?.email) {
 				let mailData = mailComposerForLink(conversationData.urlToBeEmailed, conversationData?.userDetails?.email);
 				console.log("mail data" + mailData)
