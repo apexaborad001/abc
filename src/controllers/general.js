@@ -324,7 +324,7 @@ let generalQueryController = {
 			if(conversationData.previousIntentName==="agent.logistics")conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/Industries/Logistics"
 			// conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/";
 			if (conversationData?.userDetails?.email) {
-				let mailData = mailComposerForLink(conversationData.urlToBeEmailed,conversationData?.userDetails?.email);
+				let mailData = mailComposerForLink(conversationData,conversationData?.userDetails?.email);
 				console.log("mail data"+mailData)
 				sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
 				responseObject = integrator.conditionCreater("sendLinkToMail");
