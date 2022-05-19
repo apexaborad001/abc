@@ -323,7 +323,7 @@ let generalQueryController = {
 			console.log("conversationData",conversationData);
 			if(conversationData.previousIntentName==="agent.logistics")conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/Industries/Logistics"
 			conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/";
-			// console.log("##############",conversationData.userDetails.urlToBeEmailed)
+			console.log("##############",conversationData.userDetails.urlToBeEmailed)
 			if (conversationData?.userDetails?.email) {
 				let mailData = mailComposerForLink(conversationData.userDetails,conversationData?.userDetails?.email);
 				console.log("mail data"+mailData)
