@@ -30,6 +30,20 @@ let generalQueryController = {
 			let result = integrator.responseCreater(integrator.conditionCreater("Default response"), conversationData);
 			res.status(result.statusCode).json(result);
 		}
+	},
+	retail: async (req, res) => {
+		try {
+			const conversationData = req?.body?.conversationData;
+            conversationData.previousIntentName = "agent.retail";
+            if(conversationData.previousIntentName==="agent.readMore")conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/Industries/Retail"
+			responseObject = integrator.conditionCreater(integrator.conditionCreater("Default response"));
+			let result = integrator.responseCreater(responseObject, conversationData);
+			res.status(result.statusCode).json(result);
+		}catch (error) {
+			const conversationData = req?.body?.conversationData;
+			let result = integrator.responseCreater(integrator.conditionCreater("Default response"), conversationData);
+			res.status(result.statusCode).json(result);
+		}
 	}
 
 }

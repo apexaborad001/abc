@@ -15,7 +15,7 @@ const { leadGenaratedLogs } = require("../utils/logger.js");
 // const { technologiesExcellence, innovationLabs, urlsForIndustries, digitalCounsulting } = require("./solutions");
 const { slotData } = require("../utils/supporter");
 const { androidmanagement } = require("googleapis/build/src/apis/androidmanagement");
- 
+
 let generalQueryController = {
 	emailAndPhone: async (req, res) => {
 		let conversationData = req.body.conversationData;
@@ -32,7 +32,7 @@ let generalQueryController = {
 			if (!conversationData.slotsAnswered) conversationData.slotsAnswered = [];
 			if (conversationData.leadInserted && conversationData.intentNameByCordinator === "agent.contactUs") {
 				let result = integrator.responseCreater(integrator.conditionCreater("leadAlreadyCaptured"), conversationData);
-				
+
 				return res.status(result.statusCode).json(result);
 			}
 			for (let key in slotValues) {
@@ -88,183 +88,185 @@ let generalQueryController = {
 			conversationData.slotsAnswered = getSlotAnsweredData;
 			console.log(conversationData.userDetails, conversationData.slotsAnswered);
 			if (conversationData.previousIntentName === "agent.contactUs") {
-			console.log({ emailData, phoneNumberData })
-			if (emailData.isGiven && emailData.verifiedStatus && emailData.isBusinessEmail) {
-				conversationData.slotsAnswered.push("askEmail");
-				conversationData.isEmailAsked = false;
-				let slot = slotFiller(conversationData.slotsAnswered, allSlots);
-				switch (slot) {
-					case "askEmail":
-						conversationData.isEmailAsked = true;
-						break;
-					case "askPhoneNumber":
-						conversationData.isPhoneNumberAsked = true;
-						break;
-					case "askName":
-						conversationData.isNameAsked = true;
-						break;
-				}
-				if (slot === "finalMessage") {
-					if (conversationData.userDetails.name !== undefined) conversationData.userDetails.name = conversationData.userDetails.name.trim();
-					responseObject = integrator.singleValueReplacer(slot, "$userName", conversationData.userDetails.name, "message");
-					console.log(conversationData.userDetails, "10");
-					conversationData.leadInserted = true;
-					leadGenaratedLogs(conversationData.userDetails);
-					let mailData = mailComposeForSalesTeam(conversationData.userDetails);
-					sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
+				console.log({ emailData, phoneNumberData })
+				if (emailData.isGiven && emailData.verifiedStatus && emailData.isBusinessEmail) {
+					conversationData.slotsAnswered.push("askEmail");
+					conversationData.isEmailAsked = false;
+					let slot = slotFiller(conversationData.slotsAnswered, allSlots);
+					switch (slot) {
+						case "askEmail":
+							conversationData.isEmailAsked = true;
+							break;
+						case "askPhoneNumber":
+							conversationData.isPhoneNumberAsked = true;
+							break;
+						case "askName":
+							conversationData.isNameAsked = true;
+							break;
+					}
+					if (slot === "finalMessage") {
+						if (conversationData.userDetails.name !== undefined) conversationData.userDetails.name = conversationData.userDetails.name.trim();
+						responseObject = integrator.singleValueReplacer(slot, "$userName", conversationData.userDetails.name, "message");
+						console.log(conversationData.userDetails, "10");
+						conversationData.leadInserted = true;
+						leadGenaratedLogs(conversationData.userDetails);
+						let mailData = mailComposeForSalesTeam(conversationData.userDetails);
+						sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
+						let result = integrator.responseCreater(responseObject, conversationData);
+						return res.status(result.statusCode).json(result);
+					}
+					if (conversationData.userDetails !== undefined)
+						responseObject = integrator.singleValueReplacer(slot, "$userName", conversationData.userDetails.name, "oddMessages");
+					else responseObject = integrator.singleValueReplacer(slot, "$userName", "User", "oddMessages");
 					let result = integrator.responseCreater(responseObject, conversationData);
 					return res.status(result.statusCode).json(result);
 				}
-				if (conversationData.userDetails !== undefined)
-					responseObject = integrator.singleValueReplacer(slot, "$userName", conversationData.userDetails.name, "oddMessages");
-				else responseObject = integrator.singleValueReplacer(slot, "$userName", "User", "oddMessages");
-				let result = integrator.responseCreater(responseObject, conversationData);
-				return res.status(result.statusCode).json(result);
+				if (emailData.isGiven && emailData.verifiedStatus && emailData.isBusinessEmail && phoneNumberData.isGiven && phoneNumberData.verifiedStatus) {
+					conversationData.slotsAnswered.push("askEmail");
+					conversationData.isEmailAsked = false;
+					conversationData.slotsAnswered.push("askPhoneNumber");
+					conversationData.isPhoneNumberAsked = false;
+					let slot = slotFiller(conversationData.slotsAnswered, allSlots);
+					switch (slot) {
+						case "askEmail":
+							conversationData.isEmailAsked = true;
+							break;
+						case "askPhoneNumber":
+							conversationData.isPhoneNumberAsked = true;
+							break;
+						case "askName":
+							conversationData.isNameAsked = true;
+							break;
+					}
+					if (slot === "finalMessage") {
+						if (conversationData.userDetails.name !== undefined) conversationData.userDetails.name = conversationData.userDetails.name.trim();
+						responseObject = integrator.singleValueReplacer(slot, "$userName", conversationData.userDetails.name, "message");
+						conversationData.leadInserted = true;
+						leadGenaratedLogs(conversationData.userDetails);
+						let mailData = mailComposeForSalesTeam(conversationData.userDetails);
+						sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
+						let result = integrator.responseCreater(responseObject, conversationData);
+
+						return res.status(result.statusCode).json(result);
+					}
+					if (conversationData.userDetails !== undefined)
+						responseObject = integrator.singleValueReplacer(slot, "$userName", conversationData.userDetails.name, "oddMessages");
+					else responseObject = integrator.singleValueReplacer(slot, "$userName", "User", "oddMessages");
+					let result = integrator.responseCreater(responseObject, conversationData);
+					return res.status(result.statusCode).json(result);
+				} else if (emailData.isGiven && emailData.verifiedStatus && emailData.isBusinessEmail && !phoneNumberData.isGiven) {
+					conversationData.isEmailAsked = false;
+					conversationData.slotsAnswered.push("askEmail");
+					let slot = slotFiller(conversationData.slotsAnswered, allSlots);
+					switch (slot) {
+						case "askEmail":
+							conversationData.isEmailAsked = true;
+							break;
+						case "askPhoneNumber":
+							conversationData.isPhoneNumberAsked = true;
+							break;
+						case "askName":
+							conversationData.isNameAsked = true;
+							break;
+					}
+					if (slot === "finalMessage") {
+						if (conversationData.userDetails.name !== undefined) conversationData.userDetails.name = conversationData.userDetails.name.trim();
+						responseObject = integrator.singleValueReplacer(slot, "$userName", conversationData.userDetails.name, "message");
+						console.log(conversationData.userDetails, "11");
+						leadGenaratedLogs(conversationData.userDetails);
+						let mailData = mailComposeForSalesTeam(conversationData.userDetails);
+						sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
+						conversationData.leadInserted = true;
+						let result = integrator.responseCreater(responseObject, conversationData);
+
+						return res.status(result.statusCode).json(result);
+					}
+					if (conversationData.userDetails !== undefined)
+						responseObject = integrator.singleValueReplacer(slot, "$userName", conversationData.userDetails.name, "oddMessages");
+					else responseObject = integrator.singleValueReplacer(slot, "$userName", "User", "oddMessages");
+					let result = integrator.responseCreater(responseObject, conversationData);
+					return res.status(result.statusCode).json(result);
+				} else if (emailData.isGiven && emailData.verifiedStatus === false && !phoneNumberData.isGiven) {
+					if (!emailData.isBusinessEmail) {
+						responseObject = integrator.conditionCreater("invalidBusinessEmail");
+						let result = integrator.responseCreater(responseObject, conversationData);
+
+						return res.status(result.statusCode).json(result);
+					} else {
+						responseObject = integrator.conditionCreater("invalidEmail");
+						let result = integrator.responseCreater(responseObject, conversationData);
+
+						return res.status(result.statusCode).json(result);
+					}
+				} else if (phoneNumberData.isGiven && phoneNumberData.verifiedStatus && !emailData.isGiven) {
+					conversationData.slotsAnswered.push("askPhoneNumber");
+					conversationData.isPhoneNumberAsked = false;
+					let slot = slotFiller(conversationData.slotsAnswered, allSlots);
+					switch (slot) {
+						case "askEmail":
+							conversationData.isEmailAsked = true;
+							break;
+						case "askPhoneNumber":
+							conversationData.isPhoneNumberAsked = true;
+							break;
+						case "askName":
+							conversationData.isNameAsked = true;
+							break;
+					}
+					if (slot === "finalMessage") {
+						if (conversationData.userDetails.name !== undefined) conversationData.userDetails.name = conversationData.userDetails.name.trim();
+						responseObject = integrator.singleValueReplacer(slot, "$userName", conversationData.userDetails.name, "message");
+						console.log(conversationData.userDetails, "12");
+						conversationData.leadInserted = true;
+						leadGenaratedLogs(conversationData.userDetails);
+						let mailData = mailComposeForSalesTeam(conversationData.userDetails);
+						sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
+						let result = integrator.responseCreater(responseObject, conversationData);
+
+						return res.status(result.statusCode).json(result);
+					}
+					if (conversationData.userDetails !== undefined)
+						responseObject = integrator.singleValueReplacer(slot, "$userName", conversationData.userDetails.name, "oddMessages");
+					else responseObject = integrator.singleValueReplacer(slot, "$userName", "User", "oddMessages");
+					let result = integrator.responseCreater(responseObject, conversationData);
+
+					return res.status(result.statusCode).json(result);
+				} else if (phoneNumberData.isGiven && phoneNumberData.verifiedStatus === false && !emailData.isGiven) {
+					responseObject = integrator.conditionCreater(phoneNumberData.condition);
+					let result = integrator.responseCreater(responseObject, conversationData);
+
+					return res.status(result.statusCode).json(result);
+				} else if (emailData.isGiven && emailData.verifiedStatus == false && emailData.isBusinessEmail === false && phoneNumberData.isGiven) {
+					conversationData.slotsAnswered.push("askPhoneNumber");
+					conversationData.isPhoneNumberAsked = false;
+					conversationData.userDetails.phoneNumber = phoneNumberData.data;
+					if (!emailData.isBusinessEmail) {
+						responseObject = integrator.conditionCreater("invalidBusinessEmail");
+						let result = integrator.responseCreater(responseObject, conversationData);
+						return res.status(result.statusCode).json(result);
+					}
+				}
 			}
-			if (emailData.isGiven && emailData.verifiedStatus && emailData.isBusinessEmail && phoneNumberData.isGiven && phoneNumberData.verifiedStatus) {
-				conversationData.slotsAnswered.push("askEmail");
-				conversationData.isEmailAsked = false;
-				conversationData.slotsAnswered.push("askPhoneNumber");
-				conversationData.isPhoneNumberAsked = false;
-				let slot = slotFiller(conversationData.slotsAnswered, allSlots);
-				switch (slot) {
-					case "askEmail":
-						conversationData.isEmailAsked = true;
-						break;
-					case "askPhoneNumber":
-						conversationData.isPhoneNumberAsked = true;
-						break;
-					case "askName":
-						conversationData.isNameAsked = true;
-						break;
-				}
-				if (slot === "finalMessage") {
-					if (conversationData.userDetails.name !== undefined) conversationData.userDetails.name = conversationData.userDetails.name.trim();
-					responseObject = integrator.singleValueReplacer(slot, "$userName", conversationData.userDetails.name, "message");
-					conversationData.leadInserted = true;
-					leadGenaratedLogs(conversationData.userDetails);
-					let mailData = mailComposeForSalesTeam(conversationData.userDetails);
-					sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
-					let result = integrator.responseCreater(responseObject, conversationData);
-
-					return res.status(result.statusCode).json(result);
-				}
-				if (conversationData.userDetails !== undefined)
-					responseObject = integrator.singleValueReplacer(slot, "$userName", conversationData.userDetails.name, "oddMessages");
-				else responseObject = integrator.singleValueReplacer(slot, "$userName", "User", "oddMessages");
-				let result = integrator.responseCreater(responseObject, conversationData);
-				return res.status(result.statusCode).json(result);
-			} else if (emailData.isGiven && emailData.verifiedStatus && emailData.isBusinessEmail && !phoneNumberData.isGiven) {
-				conversationData.isEmailAsked = false;
-				conversationData.slotsAnswered.push("askEmail");
-				let slot = slotFiller(conversationData.slotsAnswered, allSlots);
-				switch (slot) {
-					case "askEmail":
-						conversationData.isEmailAsked = true;
-						break;
-					case "askPhoneNumber":
-						conversationData.isPhoneNumberAsked = true;
-						break;
-					case "askName":
-						conversationData.isNameAsked = true;
-						break;
-				}
-				if (slot === "finalMessage") {
-					if (conversationData.userDetails.name !== undefined) conversationData.userDetails.name = conversationData.userDetails.name.trim();
-					responseObject = integrator.singleValueReplacer(slot, "$userName", conversationData.userDetails.name, "message");
-					console.log(conversationData.userDetails, "11");
-					leadGenaratedLogs(conversationData.userDetails);
-					let mailData = mailComposeForSalesTeam(conversationData.userDetails);
-					sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
-					conversationData.leadInserted = true;
-					let result = integrator.responseCreater(responseObject, conversationData);
-
-					return res.status(result.statusCode).json(result);
-				}
-				if (conversationData.userDetails !== undefined)
-					responseObject = integrator.singleValueReplacer(slot, "$userName", conversationData.userDetails.name, "oddMessages");
-				else responseObject = integrator.singleValueReplacer(slot, "$userName", "User", "oddMessages");
-				let result = integrator.responseCreater(responseObject, conversationData);
-				return res.status(result.statusCode).json(result);
-			} else if (emailData.isGiven && emailData.verifiedStatus === false && !phoneNumberData.isGiven) {
-				if (!emailData.isBusinessEmail) {
-					responseObject = integrator.conditionCreater("invalidBusinessEmail");
-					let result = integrator.responseCreater(responseObject, conversationData);
-
-					return res.status(result.statusCode).json(result);
-				} else {
-					responseObject = integrator.conditionCreater("invalidEmail");
-					let result = integrator.responseCreater(responseObject, conversationData);
-
-					return res.status(result.statusCode).json(result);
-				}
-			} else if (phoneNumberData.isGiven && phoneNumberData.verifiedStatus && !emailData.isGiven) {
-				conversationData.slotsAnswered.push("askPhoneNumber");
-				conversationData.isPhoneNumberAsked = false;
-				let slot = slotFiller(conversationData.slotsAnswered, allSlots);
-				switch (slot) {
-					case "askEmail":
-						conversationData.isEmailAsked = true;
-						break;
-					case "askPhoneNumber":
-						conversationData.isPhoneNumberAsked = true;
-						break;
-					case "askName":
-						conversationData.isNameAsked = true;
-						break;
-				}
-				if (slot === "finalMessage") {
-					if (conversationData.userDetails.name !== undefined) conversationData.userDetails.name = conversationData.userDetails.name.trim();
-					responseObject = integrator.singleValueReplacer(slot, "$userName", conversationData.userDetails.name, "message");
-					console.log(conversationData.userDetails, "12");
-					conversationData.leadInserted = true;
-					leadGenaratedLogs(conversationData.userDetails);
-					let mailData = mailComposeForSalesTeam(conversationData.userDetails);
-					sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
-					let result = integrator.responseCreater(responseObject, conversationData);
-
-					return res.status(result.statusCode).json(result);
-				}
-				if (conversationData.userDetails !== undefined)
-					responseObject = integrator.singleValueReplacer(slot, "$userName", conversationData.userDetails.name, "oddMessages");
-				else responseObject = integrator.singleValueReplacer(slot, "$userName", "User", "oddMessages");
-				let result = integrator.responseCreater(responseObject, conversationData);
-
-				return res.status(result.statusCode).json(result);
-			} else if (phoneNumberData.isGiven && phoneNumberData.verifiedStatus === false && !emailData.isGiven) {
-				responseObject = integrator.conditionCreater(phoneNumberData.condition);
-				let result = integrator.responseCreater(responseObject, conversationData);
-
-				return res.status(result.statusCode).json(result);
-			} else if (emailData.isGiven && emailData.verifiedStatus == false && emailData.isBusinessEmail === false && phoneNumberData.isGiven) {
-				conversationData.slotsAnswered.push("askPhoneNumber");
-				conversationData.isPhoneNumberAsked = false;
-				conversationData.userDetails.phoneNumber = phoneNumberData.data;
-				if (!emailData.isBusinessEmail) {
-					responseObject = integrator.conditionCreater("invalidBusinessEmail");
-					let result = integrator.responseCreater(responseObject, conversationData);
-					return res.status(result.statusCode).json(result);
-				}
-			}
-			}
-			else if(conversationData.previousIntentName==="agent.logistics"){
+			else if (conversationData.previousIntentName === "agent.logistics") {
 				if (!conversationData.userDetails) conversationData.userDetails = {};
 				conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/Industries/Logistics";
-				let mailData = mailComposerForLink(conversationData.userDetails,conversationData?.userDetails?.email);
+				let mailData = mailComposerForLink(conversationData.userDetails, conversationData?.userDetails?.email);
 				sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
 				responseObject = integrator.conditionCreater("sendLinkToMail");
-				
 
-			}else if(conversationData.previousIntentName === "agent.readMore"){
+
+			} else if (conversationData.previousIntentName === "agent.readMore") {
 				if (!conversationData.userDetails) conversationData.userDetails = {};
-				if(conversationData.previousIntentName==="agent.logistics"){
-					conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/Industries/Logistics"};
-					// conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/";
-					let mailData = mailComposerForLink(conversationData.userDetails,conversationData?.userDetails?.email);
+				if (conversationData.previousIntentName === "agent.logistics") {
+					conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/Industries/Logistics"
+				};
+				if (conversationData.previousIntentName === "agent.retail") conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/Industries/Retail"
+				// conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/";
+				let mailData = mailComposerForLink(conversationData.userDetails, conversationData?.userDetails?.email);
 				sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
 				responseObject = integrator.conditionCreater("sendLinkToMail");
 			}
-			else{
+			else {
 				responseObject = integrator.conditionCreater("Default response");
 			};
 			console.log({ responseObject })
@@ -284,7 +286,7 @@ let generalQueryController = {
 	skip: async (req, res) => {
 		try {
 			const conversationData = req?.body?.conversationData;
-			const previousIntentName =conversationData.previousIntentName
+			const previousIntentName = conversationData.previousIntentName
 			if (conversationData.previousIntentName = "agent.contactUs") {
 				responseObject = integrator.singleValueReplacer("skipPhoneNo", "$userName", conversationData?.userDetails?.name, "message");
 				// delete conversationData?.userDetails;
@@ -320,12 +322,12 @@ let generalQueryController = {
 		try {
 			const conversationData = req?.body?.conversationData;
 			if (!conversationData.userDetails) conversationData.userDetails = {};
-			console.log("conversationData",conversationData);
-			if(conversationData.previousIntentName==="agent.logistics")conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/Industries/Logistics"
+			console.log("conversationData", conversationData);
+			if (conversationData.previousIntentName === "agent.logistics") conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/Industries/Logistics"
 			// conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/";
 			if (conversationData?.userDetails?.email) {
-				let mailData = mailComposerForLink(conversationData.urlToBeEmailed,conversationData?.userDetails?.email);
-				console.log("mail data"+mailData)
+				let mailData = mailComposerForLink(conversationData.urlToBeEmailed, conversationData?.userDetails?.email);
+				console.log("mail data" + mailData)
 				sendMail(mailData.email, mailData.subject, mailData.body, [], conversationData);
 				responseObject = integrator.conditionCreater("sendLinkToMail");
 			} else {
@@ -335,7 +337,7 @@ let generalQueryController = {
 			let result = integrator.responseCreater(responseObject, conversationData);
 			res.status(result.statusCode).json(result);
 		} catch (error) {
-			const conversationData = req?.body?.conversationData; 
+			const conversationData = req?.body?.conversationData;
 			let result = integrator.responseCreater(integrator.conditionCreater("Default response"), conversationData);
 			res.status(result.statusCode).json(result);
 		}
@@ -356,7 +358,7 @@ let generalQueryController = {
 
 	// 	}
 	// }
-	
+
 	// emailAndPhone: async (req, res) => {
 	// 	let conversationData = req.body.conversationData;
 	// 	try {
