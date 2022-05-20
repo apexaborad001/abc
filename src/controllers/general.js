@@ -345,7 +345,22 @@ let generalQueryController = {
 			if(conversationData.previousIntentName==="agent.mining")conversationData.userDetails.urlToBeEmailed ="https://online24x7.net/Industries/Mining" 
             if(conversationData.previousIntentName==="agent.services")conversationData.userDetails.urlToBeEmailed ="https://online24x7.net/Industries/Services"
 			if(conversationData.previousIntentName==="agent.microsoftViva")conversationData.userDetails.urlToBeEmailed ="https://online24x7.net/Industries/MicrosoftViva" 
-
+			if(conversationData.previousIntentName==="agent.solution.sales")conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/Solutions/Dynamics365/Sales"
+			if(conversationData.previousIntentName==="agent.solution.financeAndOperation")conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/Solutions/Dynamics365/Finance-Operations"
+			if(conversationData.previousIntentName==="agent.solution.marketing")conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/Solutions/Dynamics365/Marketing"
+			if(conversationData.previousIntentName==="agent.solution.businessCentral")conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/Solutions/Dynamics365/Business-Central"
+			if(conversationData.previousIntentName==="agent.solution.dynamics365Customization")conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/Solutions/Dynamics365/Dynamics365-Customization"
+			if(conversationData.previousIntentName==="agent.solution.dynamics365ConsultingServices")conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/Solutions/Dynamics365/Dynamics365-Consulting-Services"
+			if(conversationData.previousIntentName==="agent.solution.commerce")conversationData.userDetails.urlToBeEmailed = "https://online24x7.net/Solutions/Dynamics365/dynamics365-commerce"
+			if(conversationData.previousIntentName==="agent.solution.dynamics365commerceCapabilities")conversationData.userDetails.urlToBeEmailed ="https://online24x7.net/Solutions/Dynamics365/dynamics365-capabilities" 
+			if(conversationData.previousIntentName==="agent.solution.fieldService")conversationData.userDetails.urlToBeEmailed ="https://online24x7.net/Solutions/Dynamics365/Field-Service" 
+			if(conversationData.previousIntentName==="agent.solution.customerService")conversationData.userDetails.urlToBeEmailed ="https://online24x7.net/Solutions/Dynamics365/Customer-Service" 
+			if(conversationData.previousIntentName==="agent.solution.projectServicesAutomation")conversationData.userDetails.urlToBeEmailed ="https://online24x7.net/Solutions/Dynamics365/Project-Service-Automation" 
+			if(conversationData.previousIntentName==="agent.solution.dynamics365Supports")conversationData.userDetails.urlToBeEmailed ="https://online24x7.net/Solutions/Dynamics365/Dynamics-365-Support" 
+			if(conversationData.previousIntentName==="agent.solution.dynamics365Implementation")conversationData.userDetails.urlToBeEmailed ="https://online24x7.net/Solutions/Dynamics365/Dynamics365-Implementation" 
+			if(conversationData.previousIntentName==="agent.solution.customerRelationshipManagement")conversationData.userDetails.urlToBeEmailed ="https://online24x7.net/Solutions/Dynamics365/Customer-Relationship-Management-Service" 
+			if(conversationData.previousIntentName==="agent.solution.dynamics365ConnectedStore")conversationData.userDetails.urlToBeEmailed ="https://online24x7.net/Solutions/Dynamics365/dynamics-365-connected-store" 
+			
 			if (conversationData?.userDetails?.email) {
 				let mailData = mailComposerForLink(conversationData.urlToBeEmailed, conversationData?.userDetails?.email);
 				console.log("mail data" + mailData)
